@@ -6,7 +6,7 @@ import { test, expect } from '@playwright/test';
 //   await expect(page).toHaveURL(/orangehrm/);
 // });
 
-test.only('OrangeHRM page has correct title', async ({ page }) => {
+test('OrangeHRM page has correct title', async ({ page }) => {
   await page.goto(process.env.BASE_URL!);
   await expect(page).toHaveTitle('OrangeHRM');
 });
