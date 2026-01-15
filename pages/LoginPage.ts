@@ -1,9 +1,8 @@
 import { Page, Locator } from '@playwright/test';
 
+
 export class LoginPage {
   readonly page: Page;
-
-  // Locators
   readonly usernameInput: Locator;
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
@@ -23,5 +22,9 @@ export class LoginPage {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
+  }
+
+  async getErrorMessage(): Promise<string | null> {
+    return await this.page.locator('.oxd-alert-content-text').textContent();
   }
 }

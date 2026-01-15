@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
 dotenv.config(); // učitaj .env varijable
 
-import { LoginPage } from "../pages/LeavePage/LoginPage";
+import { LoginPage } from "../pages/LoginPage";
 
 test.describe('Orange HRM Login', () => {
   let loginPage: LoginPage;
