@@ -4,30 +4,43 @@ dotenv.config(); // učitaj .env varijable
 
 import { LoginPage } from "../pages/LoginPage";
 
-test.describe('Orange HRM Login', () => {
-  let loginPage: LoginPage;
+test.describe('OrangeHRM Login Tests', () => {
 
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    await loginPage.open(); // otvori stranicu
+  test('Should login with valid credentials', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.open();
+    
+    // Perform login with valid credentials
+    await loginPage.login(
+      process.env.APP_USERNAME!,
+      process.env.APP_PASSWORD!
+    );
+
+    // Verify successful login - Dashboard is visible
+    await expect(
+      page.getByRole('heading', { name: 'Dashboard' })
+    ).toBeVisible();
+
+    // Verify URL contains dashboard
+    await expect(page).toHaveURL(/\/dashboard/);
   });
 
-  test('Login with valid credentials', async ({ page }) => {
-  await loginPage.login(
-    process.env.APP_USERNAME!,
-    process.env.APP_PASSWORD!
-  );
+  test('Should not login with invalid credentials', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.open();
+    
+    // Try login with invalid credentials
+    await loginPage.login(
+      'invalidUser123',
+      'wrongPassword123'
+    );
 
-  await expect(
-    page.getByRole('heading', { name: 'Dashboard' })
-  ).toBeVisible();
-
-  await expect(page).toHaveURL(/dashboard/);
-});
-
-  test('Login with invalid credentials', async ({ page }) => {
-    await loginPage.login('wronguser', 'wrongpass');
-    const error = await page.locator('.oxd-alert-content-text').textContent();
-    expect(error).toContain('Invalid credentials');
+    // Verify error message is displayed
+    await expect(loginPage.errorMessage).toBeVisible();
+    await expect(loginPage.errorMessage).toHaveText(/Invalid credentials/i);
+    
+    // Verify we are still on login page
+    await expect(page).toHaveURL(/\/login/);
   });
+
 });

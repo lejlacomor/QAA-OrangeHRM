@@ -1,4 +1,8 @@
-{ "LEAVE_FROM_DATE": "2026-27-01",
+{ 
+  "LEAVE_FROM_DATE": "2026-27-01",
   "LEAVE_TO_DATE": "2026-28-01",
-  "LEAVE_COMMENT": "Hello I need a break"
+  "LEAVE_COMMENT": "Hello I need a break",
+  "LEAVE_TYPE": "CAN - Personal",
+   "INVALID_LEAVE_FROM_DATE" : "2026-28-01",
+  "INVALID_LEAVE_TO_DATE" :"2026-12-01"
 }
