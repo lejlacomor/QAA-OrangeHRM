@@ -34,6 +34,7 @@ test("User want to Apply for Leave with empty fields - Negative Test", async ({ 
   await page.waitForURL('**/leave/applyLeave**');
   const applyLeavePage = new ApplyLeavePage(page);
   
+  await page.waitForTimeout(2000);
   // Try to submit the form with empty fields
   await applyLeavePage.clickApplyButton();
 

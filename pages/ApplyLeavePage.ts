@@ -1,5 +1,5 @@
 // pages/ApplyLeavePage.ts
-import { Page, Locator } from '@playwright/test';
+import { expect, Page, Locator } from '@playwright/test';
 
 export class ApplyLeavePage {
   readonly page: Page;
@@ -50,6 +50,14 @@ export class ApplyLeavePage {
     
     // Header
     this.applyLeaveHeader = page.locator('.oxd-text--h6', { hasText: 'Apply Leave' });
+  }
+   async verifyAllElementsVisible() {
+    await expect(this.leaveTypeDropdown).toBeVisible();
+    await expect(this.fromDateInput).toBeVisible();
+    await expect(this.toDateInput).toBeVisible();
+    await expect(this.commentsTextarea).toBeVisible();
+    await expect(this.applyButton).toBeVisible();
+    //await expect(this.cancelButton).toBeVisible();
   }
 
   // Actions
@@ -144,4 +152,6 @@ async applyForLeaveWithPastDates(
   // Pokušaj submit-a (očekujemo da neće proći)
   await this.clickApplyButton();
 }
+
+
 }
